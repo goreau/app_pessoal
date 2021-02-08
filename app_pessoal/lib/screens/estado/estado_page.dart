@@ -1,4 +1,6 @@
+import 'package:app_pessoal/screens/estado/estado_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constants.dart';
 
@@ -80,6 +82,8 @@ class AvatarButton extends StatelessWidget {
   final String img;
   final int opt;
 
+  EstadoController _ctrl = Get.put(EstadoController());
+
   AvatarButton({this.message, this.img, this.opt});
 
   @override
@@ -89,11 +93,13 @@ class AvatarButton extends StatelessWidget {
       child: Container(
         child: FittedBox(
           child: FloatingActionButton(
+            heroTag: "bt_$opt",
             tooltip: message,
             child: Image.asset(img),
             backgroundColor: kAvatarBackground,
             onPressed: () {
-              opcao(opt);
+              _ctrl.avatarOpt.value = opt;
+              _ctrl.opcao();
             },
           ),
         ),
@@ -101,5 +107,3 @@ class AvatarButton extends StatelessWidget {
     );
   }
 }
-
-void opcao(int opt) {}
